@@ -642,7 +642,7 @@ public class JLargeArraysTest extends TestCase
         long idx = 5;
         float val = 3.4f;
         a.setToNative(idx, val);
-        assertEquals(val, (float) a.getFromNative(idx), 0.0);
+        assertEquals(val, a.getFromNative(idx), 0.0);
     }
 
     public void testFloatLargeArrayGetData()
@@ -893,6 +893,22 @@ public class JLargeArraysTest extends TestCase
         for (int i = 0; i < length; i++) {
             assertEquals(data[startPos + i], b.get(i));
         }
+    }
+
+    public void testLargeArrayNativePointerInterOp()
+    {
+        BitLargeArray a = new BitLargeArray(1l << 33, (byte) 1);
+        assertTrue(a.getBoolean(0));
+        assertTrue(a.getBoolean(a.length() - 1));
+        Throwable e = null;
+        try {
+            a.setBoolean(0, false);
+        }
+        catch (IllegalAccessError ex) {
+            e = ex;
+        }
+        assertTrue(e instanceof IllegalAccessError);
+        assertNull(a.getData());
     }
 
 }

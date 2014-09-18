@@ -66,8 +66,8 @@ public abstract class LargeArray implements
      * pointer is valid as long as the parent is not garbage collected.
      * 
      * @param parent class instance responsible for handling the pointer's life
-     *        cycle, the created instance of LargeArray will prevent the GC from
-     *        reclaiming the parent.
+     *            cycle, the created instance of LargeArray will prevent the GC
+     *            from reclaiming the parent.
      * @param nativePointer native pointer to wrap.
      * @param largeArrayType type of array
      * @param length array length
@@ -358,7 +358,8 @@ public abstract class LargeArray implements
      * Array bounds are checked.
      *
      * @param a the array into which the elements are to be stored, if it is big
-     *        enough; otherwise, a new array of is allocated for this purpose.
+     *            enough; otherwise, a new array of is allocated for this
+     *            purpose.
      * @param startPos starting position (included)
      * @param endPos ending position (excluded)
      * @param step step size
@@ -386,7 +387,8 @@ public abstract class LargeArray implements
      * Array bounds are checked.
      *
      * @param a the array into which the elements are to be stored, if it is big
-     *        enough; otherwise, a new array of is allocated for this purpose.
+     *            enough; otherwise, a new array of is allocated for this
+     *            purpose.
      * @param startPos starting position (included)
      * @param endPos ending position (excluded)
      * @param step step size
@@ -414,7 +416,8 @@ public abstract class LargeArray implements
      * Array bounds are checked.
      *
      * @param a the array into which the elements are to be stored, if it is big
-     *        enough; otherwise, a new array of is allocated for this purpose.
+     *            enough; otherwise, a new array of is allocated for this
+     *            purpose.
      * @param startPos starting position (included)
      * @param endPos ending position (excluded)
      * @param step step size
@@ -442,7 +445,8 @@ public abstract class LargeArray implements
      * Array bounds are checked.
      *
      * @param a the array into which the elements are to be stored, if it is big
-     *        enough; otherwise, a new array of is allocated for this purpose.
+     *            enough; otherwise, a new array of is allocated for this
+     *            purpose.
      * @param startPos starting position (included)
      * @param endPos ending position (excluded)
      * @param step step size
@@ -470,7 +474,8 @@ public abstract class LargeArray implements
      * Array bounds are checked.
      *
      * @param a the array into which the elements are to be stored, if it is big
-     *        enough; otherwise, a new array of is allocated for this purpose.
+     *            enough; otherwise, a new array of is allocated for this
+     *            purpose.
      * @param startPos starting position (included)
      * @param endPos ending position (excluded)
      * @param step step size
@@ -498,7 +503,8 @@ public abstract class LargeArray implements
      * Array bounds are checked.
      *
      * @param a the array into which the elements are to be stored, if it is big
-     *        enough; otherwise, a new array of is allocated for this purpose.
+     *            enough; otherwise, a new array of is allocated for this
+     *            purpose.
      * @param startPos starting position (included)
      * @param endPos ending position (excluded)
      * @param step step size
@@ -526,7 +532,8 @@ public abstract class LargeArray implements
      * Array bounds are checked.
      *
      * @param a the array into which the elements are to be stored, if it is big
-     *        enough; otherwise, a new array of is allocated for this purpose.
+     *            enough; otherwise, a new array of is allocated for this
+     *            purpose.
      * @param startPos starting position (included)
      * @param endPos ending position (excluded)
      * @param step step size
@@ -582,7 +589,7 @@ public abstract class LargeArray implements
      * @param value value to set
      *
      * @throws ClassCastException if the type of value argument is different
-     *         than the type of the array
+     *             than the type of the array
      */
     public abstract void setToNative(long i, Object value);
 

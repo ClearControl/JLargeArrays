@@ -27,7 +27,7 @@
 package pl.edu.icm.jlargearrays;
 
 import java.io.UnsupportedEncodingException;
-import static pl.edu.icm.jlargearrays.LargeArray.LARGEST_32BIT_INDEX;
+
 import sun.misc.Cleaner;
 
 /**
@@ -49,7 +49,27 @@ public class StringLargeArray extends LargeArray
     private static final int CHARSET_SIZE = 4; //UTF-8 uses between 1 and 4 bytes to encode a single character 
 
     /**
-     * Creates new instance of this class. The maximal string length is set to 100.
+     * Creates new instance of this class by wrapping a native pointer.
+     * Providing an invalid pointer, parent or length will result in
+     * unpredictable behavior and likely JVM crash. The assumption is that the
+     * pointer is valid as long as the parent is not garbage collected.
+     * 
+     * @param parent class instance responsible for handling the pointer's life
+     *            cycle, the created instance of LargeArray will prevent the GC
+     *            from reclaiming the parent.
+     * @param nativePointer native pointer to wrap.
+     * @param length array length
+     */
+    public StringLargeArray(final Object parent,
+                            final long nativePointer,
+                            final long length)
+    {
+        super(parent, nativePointer, LargeArrayType.STRING, length);
+    }
+
+    /**
+     * Creates new instance of this class. The maximal string length is set to
+     * 100.
      *
      * @param length number of elements
      */
@@ -87,7 +107,7 @@ public class StringLargeArray extends LargeArray
             throw new IllegalArgumentException(maxStringLength + " is not a positive int value.");
         }
         this.length = length;
-        this.size = length * (long) maxStringLength * (long) CHARSET_SIZE;
+        this.size = length * maxStringLength * CHARSET_SIZE;
         this.maxStringLength = maxStringLength;
         if (length > LARGEST_32BIT_INDEX) {
             System.gc();

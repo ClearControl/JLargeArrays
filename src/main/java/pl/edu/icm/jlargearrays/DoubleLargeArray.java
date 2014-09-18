@@ -41,6 +41,25 @@ public class DoubleLargeArray extends LargeArray
     private double[] data;
 
     /**
+     * Creates new instance of this class by wrapping a native pointer.
+     * Providing an invalid pointer, parent or length will result in
+     * unpredictable behavior and likely JVM crash. The assumption is that the
+     * pointer is valid as long as the parent is not garbage collected.
+     * 
+     * @param parent class instance responsible for handling the pointer's life
+     *            cycle, the created instance of LargeArray will prevent the GC
+     *            from reclaiming the parent.
+     * @param nativePointer native pointer to wrap.
+     * @param length array length
+     */
+    public DoubleLargeArray(final Object parent,
+                            final long nativePointer,
+                            final long length)
+    {
+        super(parent, nativePointer, LargeArrayType.DOUBLE, length);
+    }
+
+    /**
      * Creates new instance of this class.
      *
      * @param length number of elements
@@ -667,7 +686,7 @@ public class DoubleLargeArray extends LargeArray
             if (isConstant()) {
                 if (length > getMaxSizeOf32bitArray()) return null;
                 double[] out = new double[(int) length];
-                double elem = (double) data[0];
+                double elem = data[0];
                 for (int i = 0; i < length; i++) {
                     out[i] = elem;
                 }
@@ -744,12 +763,12 @@ public class DoubleLargeArray extends LargeArray
     public void setByte(long i, byte value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putDouble(ptr + sizeof * i, (double) value);
+            Utilities.UNSAFE.putDouble(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (double) value;
+            data[(int) i] = value;
         }
     }
 
@@ -757,12 +776,12 @@ public class DoubleLargeArray extends LargeArray
     public void setShort(long i, short value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putDouble(ptr + sizeof * i, (double) value);
+            Utilities.UNSAFE.putDouble(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (double) value;
+            data[(int) i] = value;
         }
     }
 
@@ -770,12 +789,12 @@ public class DoubleLargeArray extends LargeArray
     public void setInt(long i, int value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putDouble(ptr + sizeof * i, (double) value);
+            Utilities.UNSAFE.putDouble(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (double) value;
+            data[(int) i] = value;
         }
     }
 
@@ -783,12 +802,12 @@ public class DoubleLargeArray extends LargeArray
     public void setLong(long i, long value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putDouble(ptr + sizeof * i, (double) value);
+            Utilities.UNSAFE.putDouble(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (double) value;
+            data[(int) i] = value;
         }
     }
 
@@ -796,12 +815,12 @@ public class DoubleLargeArray extends LargeArray
     public void setFloat(long i, float value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putDouble(ptr + sizeof * i, (double) value);
+            Utilities.UNSAFE.putDouble(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (double) value;
+            data[(int) i] = value;
         }
     }
 

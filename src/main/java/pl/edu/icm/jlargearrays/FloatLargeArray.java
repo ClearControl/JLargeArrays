@@ -41,6 +41,25 @@ public class FloatLargeArray extends LargeArray
     private float[] data;
 
     /**
+     * Creates new instance of this class by wrapping a native pointer.
+     * Providing an invalid pointer, parent or length will result in
+     * unpredictable behavior and likely JVM crash. The assumption is that the
+     * pointer is valid as long as the parent is not garbage collected.
+     * 
+     * @param parent class instance responsible for handling the pointer's life
+     *            cycle, the created instance of LargeArray will prevent the GC
+     *            from reclaiming the parent.
+     * @param nativePointer native pointer to wrap.
+     * @param length array length
+     */
+    public FloatLargeArray(final Object parent,
+                            final long nativePointer,
+                            final long length)
+    {
+        super(parent, nativePointer, LargeArrayType.FLOAT, length);
+    }
+
+    /**
      * Creates new instance of this class.
      *
      * @param length number of elements
@@ -219,12 +238,12 @@ public class FloatLargeArray extends LargeArray
     public double getDouble(long i)
     {
         if (ptr != 0) {
-            return (double) Utilities.UNSAFE.getFloat(ptr + sizeof * i);
+            return Utilities.UNSAFE.getFloat(ptr + sizeof * i);
         } else {
             if (isConstant()) {
-                return (double) data[0];
+                return data[0];
             } else {
-                return (double) data[(int) i];
+                return data[(int) i];
             }
         }
     }
@@ -601,7 +620,7 @@ public class FloatLargeArray extends LargeArray
             if (isConstant()) {
                 if (length > getMaxSizeOf32bitArray()) return null;
                 float[] out = new float[(int) length];
-                float elem = (float) data[0];
+                float elem = data[0];
                 for (int i = 0; i < length; i++) {
                     out[i] = elem;
                 }
@@ -665,7 +684,7 @@ public class FloatLargeArray extends LargeArray
             if (isConstant()) {
                 if (length > getMaxSizeOf32bitArray()) return null;
                 double[] out = new double[(int) length];
-                double elem = (double) data[0];
+                double elem = data[0];
                 for (int i = 0; i < length; i++) {
                     out[i] = elem;
                 }
@@ -673,7 +692,7 @@ public class FloatLargeArray extends LargeArray
             } else {
                 double[] res = new double[(int) length];
                 for (int i = 0; i < length; i++) {
-                    res[i] = (double) data[i];
+                    res[i] = data[i];
 
                 }
                 return res;
@@ -707,16 +726,16 @@ public class FloatLargeArray extends LargeArray
             int idx = 0;
             if (ptr != 0) {
                 for (long i = startPos; i < endPos; i += step) {
-                    out[idx++] = (double) Utilities.UNSAFE.getFloat(ptr + sizeof * i);
+                    out[idx++] = Utilities.UNSAFE.getFloat(ptr + sizeof * i);
                 }
             } else {
                 if (isConstant()) {
                     for (long i = startPos; i < endPos; i += step) {
-                        out[idx++] = (double) data[0];
+                        out[idx++] = data[0];
                     }
                 } else {
                     for (long i = startPos; i < endPos; i += step) {
-                        out[idx++] = (double) data[(int) i];
+                        out[idx++] = data[(int) i];
                     }
                 }
             }
@@ -747,12 +766,12 @@ public class FloatLargeArray extends LargeArray
     public void setByte(long i, byte value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putFloat(ptr + sizeof * i, (float) value);
+            Utilities.UNSAFE.putFloat(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (float) value;
+            data[(int) i] = value;
         }
     }
 
@@ -760,12 +779,12 @@ public class FloatLargeArray extends LargeArray
     public void setShort(long i, short value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putFloat(ptr + sizeof * i, (float) value);
+            Utilities.UNSAFE.putFloat(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (float) value;
+            data[(int) i] = value;
         }
     }
 
@@ -773,12 +792,12 @@ public class FloatLargeArray extends LargeArray
     public void setInt(long i, int value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putFloat(ptr + sizeof * i, (float) value);
+            Utilities.UNSAFE.putFloat(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (float) value;
+            data[(int) i] = value;
         }
     }
 
@@ -786,12 +805,12 @@ public class FloatLargeArray extends LargeArray
     public void setLong(long i, long value)
     {
         if (ptr != 0) {
-            Utilities.UNSAFE.putFloat(ptr + sizeof * i, (float) value);
+            Utilities.UNSAFE.putFloat(ptr + sizeof * i, value);
         } else {
             if (isConstant()) {
                 throw new IllegalAccessError("Constant arrays cannot be modified.");
             }
-            data[(int) i] = (float) value;
+            data[(int) i] = value;
         }
     }
 
